@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', include('app_login.urls')),
+    path('log_in/', include('app_login.urls')),
     path('blog/', include('app_blog.urls')),
     path('', views.index, name="index"),
 ]

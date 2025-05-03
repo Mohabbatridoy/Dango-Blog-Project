@@ -42,7 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_login',
     'app_blog',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+# isntall package for handling form (bootstarp, bootstrap3, bootstrap4, uni-form)
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,3 +138,6 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = '/log_in/login/'
