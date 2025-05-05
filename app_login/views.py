@@ -1,16 +1,17 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from app_login import forms
 
 # Create your views here.
 def SingUp(request):
-    form = UserCreationForm()
+    form = forms.UserInfoform()
     registered = False
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = forms.UserInfoform(data=request.POST)
         if form.is_valid():
             form.save()
             registered = True
@@ -21,7 +22,6 @@ def SingUp(request):
     return render(request, 'app_login/singup.html', context=dict)
 
 def login_user(request):
-    form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -32,9 +32,44 @@ def login_user(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('index'))
             
+    else:
+        form = AuthenticationForm()
+            
     return render(request, 'app_login/login.html', context={'form':form})
 
 @login_required
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+@login_required
+def profile(request):
+    return render(request, 'app_login/profile.html', context={})
+
+@login_required
+def ProfileChang(request):
+    current_user = request.user
+    form = forms.UserChangeInfo(instance=current_user)
+    if request.method == 'POST':
+        form = forms.UserChangeForm(request.POST, instance=current_user)
+        if form.is_valid():
+            form.save()
+            form = forms.UserChangeForm(request.POST, instance=current_user)
+    return render(request, 'app_login/profile_change.html', context={'form':form})
+
+
+
+@login_required
+def pass_change(request):
+    curren_user = request.user
+    changed = False
+    form = PasswordChangeForm(curren_user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(curren_user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            changed = True
+
+    return render(request, 'app_login/pass_change.html', context={'form':form, 'changed':changed})
+    

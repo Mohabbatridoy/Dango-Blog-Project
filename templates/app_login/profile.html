@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title_block %} profile ({% endblock %})
+{% block content %}
+    <h2>Your profile</h2>
+    <p>Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Name: {{user.first_name}} {{user.last_name}}</p>
+    <a href="{% url 'app_login:chngProfile' %}" class="btn btn-warning btn-sm">Change Info</a>
+{% endblock %}
