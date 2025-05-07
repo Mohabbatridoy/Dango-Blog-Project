@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_blog',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 # isntall package for handling form (bootstarp, bootstrap3, bootstrap4, uni-form)
@@ -127,12 +128,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
 #MEDIA
 MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
