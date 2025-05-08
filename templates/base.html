@@ -7,8 +7,8 @@
     <title>{% block title_block %} Blogs {% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'index' %}">MHR</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left: 50px;">
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="/media/logo.jpg" alt="MHR" width="80px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,23 +20,26 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'app_login:logout' %}">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'app_login:profile' %}">Your Profile</a>
-            </li>
-
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'app_login:singup' %}">Sign Up</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'app_login:login' %}">Login</a>
             </li>
 
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @{{user.username}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'app_login:profile' %}">Your Profile</a>
+                <a class="dropdown-item" href="{% url 'app_login:logout' %}">Log out</a>
+              </div>
+            </li> 
           </ul>
         </div>
       </nav>
-
+      
       <div class="container" style="padding-top: 20px; padding-bottom: 50px;">
         {% block content %}
 
