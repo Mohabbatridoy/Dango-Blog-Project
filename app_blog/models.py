@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 
 
 # Create your models here.
@@ -8,9 +9,12 @@ class Blog(models.Model):
     blog_title = models.CharField(max_length=264, verbose_name="Put a title")
     slug = models.SlugField(max_length=264, unique=True)
     blog_content = models.TextField(verbose_name="what is on your mind?")
-    blog_image = models.ImageField(upload_to='blog_images', verbose_name="Image")
-    publis_date = models.DateField(auto_now_add=True)
-    update_date = models.DateField(auto_now=True)
+    blog_image = models.ImageField(upload_to='blog_images', verbose_name="Image", validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
+    publis_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-publis_date',)
 
     def __str__(self):
         return self.blog_title
@@ -20,6 +24,9 @@ class comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
     comment = models.TextField()
     comment_date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-comment_date',)
 
     def __str__(self):
         return self.comment
