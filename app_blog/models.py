@@ -19,7 +19,7 @@ class Blog(models.Model):
     def __str__(self):
         return self.blog_title
     
-class comment(models.Model):
+class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_comment')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
     comment = models.TextField()
@@ -33,7 +33,7 @@ class comment(models.Model):
     
 class Likes(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='liked_blog')
-    user = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='liker_user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='liker_user')
 
     def __str__(self):
         return self.user + "likes" + self.blog
