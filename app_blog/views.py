@@ -72,3 +72,15 @@ def Unliked(request, pk):
     already_liked = Likes.objects.filter(blog=blog, user=user)
     already_liked.delete()
     return HttpResponseRedirect(reverse('app_blog:blog_details', kwargs={'slug':blog.slug}))
+
+class MyBlog(LoginRequiredMixin, TemplateView):
+    template_name = 'app_blog/my_blogs.html'
+
+
+class EditBlog(LoginRequiredMixin, UpdateView):
+    model = Blog
+    fields = ('blog_title','blog_content', 'blog_image')
+    template_name = 'app_blog/edit_blog.html'
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('app_blog:blog_details', kwargs={'slug':self.object.slug})
